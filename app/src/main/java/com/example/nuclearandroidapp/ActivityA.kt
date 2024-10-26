@@ -12,7 +12,8 @@ import androidx.fragment.app.FragmentManager
 
 
 class ActivityA : AppCompatActivity() {
-
+    private val fragmentBb = "FRAGMENT_BB"
+    private val fragmentBa = "FRAGMENT_BA"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,19 +24,19 @@ class ActivityA : AppCompatActivity() {
     private fun openOrReuseFragmentBB() {
         val fragmentManager: FragmentManager = supportFragmentManager
         val fragmentBB: FragmentBB? =
-            fragmentManager.findFragmentByTag("FRAGMENT_BB") as? FragmentBB
+            fragmentManager.findFragmentByTag(fragmentBb) as? FragmentBB
 
         if (fragmentBB == null) {
             Log.d("сообщение", "Создание нового FragmentBB")
-            val newFragmentBB = FragmentBB.newInstance()
+            val newFragmentBB = FragmentBB()
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container, newFragmentBB, "FRAGMENT_BB")
+                .add(R.id.fragment_container, newFragmentBB, fragmentBb)
                 .addToBackStack(null)
                 .commit()
         } else {
             Log.d("сообщение", "Использование существующего FragmentBB")
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragmentBB, "FRAGMENT_BB")
+                .replace(R.id.fragment_container, fragmentBB, fragmentBb)
                 .addToBackStack(null)
                 .commit()
         }
@@ -45,20 +46,20 @@ class ActivityA : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
 
         // Открываем FragmentBB в контейнере fragment_container_bb
-        var fragmentBB = fragmentManager.findFragmentByTag("FRAGMENT_BB") as? FragmentBB
+        var fragmentBB = fragmentManager.findFragmentByTag(fragmentBb) as? FragmentBB
         if (fragmentBB == null) {
             fragmentBB = FragmentBB()
             fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container_bb, fragmentBB, "FRAGMENT_BB")
+                .replace(R.id.fragment_container_bb, fragmentBB, fragmentBb)
                 .commit()
         }
 
         // Открываем FragmentBA в контейнере fragment_container_ba
-        var fragmentBA = fragmentManager.findFragmentByTag("FRAGMENT_BA") as? FragmentBA
+        var fragmentBA = fragmentManager.findFragmentByTag(fragmentBa) as? FragmentBA
         if (fragmentBA == null) {
             fragmentBA = FragmentBA()
             fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container_ba, fragmentBA, "FRAGMENT_BA")
+                .replace(R.id.fragment_container_ba, fragmentBA, fragmentBa)
                 .commit()
         }
     }
