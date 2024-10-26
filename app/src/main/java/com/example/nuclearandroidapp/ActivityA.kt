@@ -20,9 +20,10 @@ class ActivityA : AppCompatActivity() {
         setContentView(R.layout.activity_a)
     }
 
-    fun openOrReuseFragmentBB() {
+    private fun openOrReuseFragmentBB() {
         val fragmentManager: FragmentManager = supportFragmentManager
-        val fragmentBB: FragmentBB? = fragmentManager.findFragmentByTag("FRAGMENT_BB") as? FragmentBB
+        val fragmentBB: FragmentBB? =
+            fragmentManager.findFragmentByTag("FRAGMENT_BB") as? FragmentBB
 
         if (fragmentBB == null) {
             Log.d("сообщение", "Создание нового FragmentBB")
@@ -39,6 +40,7 @@ class ActivityA : AppCompatActivity() {
                 .commit()
         }
     }
+
     private fun openFragmentsForLandscape() {
         val fragmentManager = supportFragmentManager
 
@@ -60,9 +62,9 @@ class ActivityA : AppCompatActivity() {
                 .commit()
         }
     }
+
     override fun onStart() {
         super.onStart()
-        Log.d("сообщение", "onStart")
         val buttonOpenActivityB: Button = findViewById(R.id.button_open_activity_b)
         val buttonOpenFragmentB: Button = findViewById(R.id.button_open_fragment_b)
 
@@ -74,7 +76,6 @@ class ActivityA : AppCompatActivity() {
         }
         // Открытие фрагмента B
         buttonOpenFragmentB.setOnClickListener {
-            Log.d("сообщение", "Кнопка Open FragmentB нажата")
             if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
                 openOrReuseFragmentBB()
             } else {
@@ -90,14 +91,5 @@ class ActivityA : AppCompatActivity() {
         Log.d("ActivityA", "Task_id: $taskId")
 
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("сообщение", "Destroy")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("сообщение", "ПАУЗА")
-    }
 }
+
